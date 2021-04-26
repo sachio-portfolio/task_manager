@@ -1,0 +1,15 @@
+<h1>タスク一覧</h1>
+<table>
+  <% @tasks.each do |task| %>
+  <tr>
+    <th><h5>タスク名</h5></th>
+    <th><h5>タスク詳細</h5></th>
+    <th><h5>詳細</h5></th>
+  </tr>
+  <tr>
+    <td><%= task.task_name %></td>
+    <td><%= task.discription %></td>
+    <td><%= link_to "詳細", task_path(task.id) %></td>
+  </tr>
+  <% end %>
+</table>
