@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order("id DESC")
   end
   def show
   end
@@ -16,7 +16,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       redirect_to task_path(@task.id)
-      flash[:notice] = "新しいタスクが作成されました"
+      flash[:notice] = "新たなタスク「#{@task.task_name}」が作成されました"
     else
       render :new
     end
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       redirect_to task_path(@task.id)
-      flash[:notice] = "タスクの編集が完了しました"
+      flash[:notice] = "タスク「#{@task.task_name}」の編集が完了しました"
     else
       render :edit
     end
