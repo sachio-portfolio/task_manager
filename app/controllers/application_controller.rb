@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :basic
+  before_action :basic if Rails.env.production?
 
   private
   def basic
