@@ -15,4 +15,8 @@ FactoryBot.define do
     task_name { '詳細画面の表示のテストを書く' }
     discription { '詳細画面の表示のコンテント' }
   end
+  factory :latest_task, class: Task do
+    task_name { '最新のタスク' }
+    discription { '作成日時の降順で一覧表示' }
+  end
 end
