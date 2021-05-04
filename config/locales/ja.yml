@@ -7,13 +7,13 @@ ja:
     task_edit_screen: タスク編集画面
     task_name: タスク名
     discription: タスク詳細
+    deadline: 終了期限
     show: 詳細
     edit: 編集
     delete: 削除
     make_new_task: タスク新規作成へ
     delete_task: このタスクを削除しますか？
     go_to_index: タスク一覧へ戻る
-
   activerecord:
     errors:
       messages:
