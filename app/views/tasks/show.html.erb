@@ -1,6 +1,6 @@
 <h1><%= t('view.task_show_screen') %></h1>
 <%= @task.task_name %>
 <%= @task.discription %>
-<%= l @task.deadline, format: :long %>
+<%= l(@task.expired_at, format: :long) %>
 <br>
 <%= link_to "戻る", tasks_path %>

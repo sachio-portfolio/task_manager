@@ -7,7 +7,7 @@ ja:
     task_edit_screen: タスク編集画面
     task_name: タスク名
     discription: タスク詳細
-    deadline: 終了期限
+    expired_at: 終了期限
     show: 詳細
     edit: 編集
     delete: 削除
