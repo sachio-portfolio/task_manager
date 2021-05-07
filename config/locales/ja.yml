@@ -8,12 +8,17 @@ ja:
     task_name: タスク名
     discription: タスク詳細
     expired_at: 終了期限
+    status: ステータス
     show: 詳細
     edit: 編集
     delete: 削除
     make_new_task: タスク新規作成へ
     delete_task: このタスクを削除しますか？
     go_to_index: タスク一覧へ戻る
+  status:
+    not_started: 未着手
+    in_progress: 着手中
+    done: 完了
   activerecord:
     errors:
       messages:

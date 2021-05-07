@@ -6,6 +6,7 @@
       <th><h5><%= t('view.task_name') %></h5></th>
       <th><h5><%= t('view.discription') %></h5></th>
       <th><h5><%= t('view.expired_at') %></h5></th>
+      <th><h5><%= t('view.status') %></h5></th>
       <th><h5><%= t('view.show') %></h5></th>
       <th><h5><%= t('view.edit') %></h5></th>
       <th><h5><%= t('view.delete') %></h5></th>
@@ -17,6 +18,7 @@
       <td class="task_row"><%= task.task_name %></td>
       <td><%= task.discription %></td>
       <td><%= l(task.expired_at, format: :long) %></td>
+      <td><%= t("status.#{task.status}") %></td>
       <td><%= link_to t('view.show'), task_path(task.id) %></td>
       <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
       <td><%= link_to t('view.delete'), task_path(task.id), method: :delete, data: {confirm: t('view.delete_task')} %></td>

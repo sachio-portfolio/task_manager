@@ -21,6 +21,10 @@
     <%= f.label :expired_at %>
     <%= f.datetime_field :expired_at %>
   </div>
+  <div class="task_unit">
+    <%= f.label :status %>
+    <%= f.select :status, Status.options_for_status, {prompt: false} %>
+  </div>
     <%= f.submit %>
 <% end %>
 <br>
