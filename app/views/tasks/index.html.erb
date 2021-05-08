@@ -1,5 +1,12 @@
 <h1><%= t('view.task_index_screen') %></h1>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+<%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
+  <%= f.label t('view.task_name') %>
+  <%= f.text_field :task_name %>
+  <%= f.label t('view.status') %>
+  <%= f.select :status, Status.options_for_status %>
+  <%= f.submit :search %>
+<% end %>
 <table>
   <thead>
     <tr>

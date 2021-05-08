@@ -4,7 +4,21 @@ class TasksController < ApplicationController
     if params[:sort_expired]
       @tasks = Task.all.order("expired_at DESC")
     else
-      @tasks = Task.all.order("created_at DESC")
+      if params[:task].present?
+        if params[:task][:task_name].present? && params[:task][:status].present?
+          @tasks = Task.search_task_name(params[:task][:task_name]).search_status(params[:task][:status])
+        elsif params[:task][:task_name].present?
+          @tasks = Task.search_task_name(params[:task][:task_name])
+        elsif params[:task][:status].present?
+          @tasks = Task.search_status(params[:task][:status])
+        end
+      else
+        if params[:sort_expired].present?
+          @tasks = Task.all.order("expired_at DESC")
+        else
+          @tasks = Task.all.order("created_at DESC")
+        end
+      end
     end
   end
   def show
@@ -42,7 +56,7 @@ class TasksController < ApplicationController
   end
   private
   def task_params
-    params.require(:task).permit(:task_name, :discription, :expired_at, :status)
+    params.require(:task).permit(:task_name, :discription, :expired_at, :status,)
   end
   def set_task
     @task = Task.find(params[:id])
