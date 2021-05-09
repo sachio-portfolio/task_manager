@@ -1,5 +1,9 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  let!(:longest_task){ FactoryBot.create(:longest_task)}
+  let!(:task){ FactoryBot.create(:task) }
+  let!(:second_task){ FactoryBot.create(:second_task) }
+  let!(:latest_task){ FactoryBot.create(:latest_task)}
   describe '新規作成機能' do
     let!(:new_task){ FactoryBot.build(:new_task) }
     before do
@@ -16,10 +20,6 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '一覧表示機能' do
-    let!(:longest_task){ FactoryBot.create(:longest_task)}
-    let!(:task){ FactoryBot.create(:task) }
-    let!(:second_task){ FactoryBot.create(:second_task) }
-    let!(:latest_task){ FactoryBot.create(:latest_task)}
     before do
       visit tasks_path
     end
@@ -39,7 +39,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on '終了期限でソートする'
       end
       it '終了期限が一番遠いものが一番上に表示される' do
-        expect(first('.task_row')). to have_content longest_task.task_name
+        within '.task_list' do
+          expect(first('.task_row')). to have_content longest_task.task_name
+        end
       end
     end
   end
@@ -52,6 +54,40 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '任意のタスク詳細画面に遷移した場合' do
      it '該当タスクの内容が表示される' do
        expect(page).to have_content show_task.task_name
+     end
+    end
+  end
+  describe '検索機能' do
+    before do
+      visit tasks_path
+    end
+    context 'タイトルであいまい検索をした場合' do
+      before do
+        fill_in 'task_task_name', with: 'Factory'
+        click_on '検索'
+      end
+     it '検索キーワードを含むタスクで絞り込まれる' do
+       expect(page).to have_content 'Factory'
+     end
+    end
+    context 'ステータス検索をした場合' do
+      before do
+        select '未着手', from: 'task[status]'
+        click_on '検索'
+      end
+     it 'ステータスに完全一致するタスクが絞り込まれる' do
+       expect(page).to have_content '未着手'
+     end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      before do
+        fill_in 'task_task_name', with: 'Factory'
+        select '完了', from: 'task[status]'
+        click_on '検索'
+      end
+     it '検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる' do
+       expect(page).to have_content 'Factory'
+       expect(page).to have_content '完了'
      end
     end
   end

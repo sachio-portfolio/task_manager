@@ -1,12 +1,14 @@
 <h1><%= t('view.task_index_screen') %></h1>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
-<%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
-  <%= f.label t('view.task_name') %>
-  <%= f.text_field :task_name %>
-  <%= f.label t('view.status') %>
-  <%= f.select :status, Status.options_for_status %>
-  <%= f.submit :search %>
-<% end %>
+<div class="serch_unit">
+  <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
+    <%= f.label t('view.task_name') %>
+    <%= f.text_field :task_name %>
+    <%= f.label t('view.status') %>
+    <%= f.select :status, Status.options_for_status %>
+    <%= f.submit "検索" %>
+  <% end %>
+</div>
 <table>
   <thead>
     <tr>
@@ -19,7 +21,7 @@
       <th><h5><%= t('view.delete') %></h5></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="task_list">
     <% @tasks.each do |task| %>
     <tr>
       <td class="task_row"><%= task.task_name %></td>
