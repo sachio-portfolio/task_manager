@@ -25,6 +25,10 @@
     <%= f.label :status %>
     <%= f.select :status, Status.options_for_status, {prompt: false} %>
   </div>
+  <div class="task_unit">
+    <%= f.label :priority %>
+    <%= f.select :priority, Priority.options_for_priority, {prompt: false} %>
+  </div>
     <%= f.submit %>
 <% end %>
 <br>

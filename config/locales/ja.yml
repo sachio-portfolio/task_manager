@@ -9,6 +9,7 @@ ja:
     discription: タスク詳細
     expired_at: 終了期限
     status: ステータス
+    priority: 優先順位
     show: 詳細
     edit: 編集
     delete: 削除
@@ -19,6 +20,10 @@ ja:
     not_started: 未着手
     in_progress: 着手中
     done: 完了
+  priority:
+    high: 高
+    normal: 中
+    low: 低
   activerecord:
     errors:
       messages:

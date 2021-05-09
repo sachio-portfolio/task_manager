@@ -8,6 +8,9 @@ class Task < ApplicationRecord
   scope :search_task_name, -> (task_name) { where('task_name LIKE ?', "%#{task_name}%") }
   scope :search_status, -> (status) { where(status: status) }
 
+  require './app/commonclass/priority'
+  enum priority: Priority.options_for_enum
+
   private
   def set_default_expired
     self.expired_at = Time.now if expired_at.blank?

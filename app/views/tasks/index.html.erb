@@ -1,5 +1,4 @@
 <h1><%= t('view.task_index_screen') %></h1>
-<%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
 <div class="serch_unit">
   <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
     <%= f.label t('view.task_name') %>
@@ -12,13 +11,14 @@
 <table>
   <thead>
     <tr>
-      <th><h5><%= t('view.task_name') %></h5></th>
-      <th><h5><%= t('view.discription') %></h5></th>
-      <th><h5><%= t('view.expired_at') %></h5></th>
-      <th><h5><%= t('view.status') %></h5></th>
-      <th><h5><%= t('view.show') %></h5></th>
-      <th><h5><%= t('view.edit') %></h5></th>
-      <th><h5><%= t('view.delete') %></h5></th>
+      <th><%= t('view.task_name') %></th>
+      <th><%= t('view.discription') %></th>
+      <th><%= link_to t('view.expired_at'), tasks_path(sort_expired: "true") %></th>
+      <th><%= t('view.status') %></th>
+      <th><%= link_to t('view.priority'), tasks_path(sort_priority: "true") %></th>
+      <th><%= t('view.show') %></th>
+      <th><%= t('view.edit') %></th>
+      <th><%= t('view.delete') %></th>
     </tr>
   </thead>
   <tbody class="task_list">
@@ -28,6 +28,7 @@
       <td><%= task.discription %></td>
       <td><%= l(task.expired_at, format: :long) %></td>
       <td><%= t("status.#{task.status}") %></td>
+      <td><%= t("priority.#{task.priority}") %></td>
       <td><%= link_to t('view.show'), task_path(task.id) %></td>
       <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
       <td><%= link_to t('view.delete'), task_path(task.id), method: :delete, data: {confirm: t('view.delete_task')} %></td>

@@ -6,10 +6,10 @@ class Status
     }
   end
   def self.options_for_status
-    res = []
+    status_list = []
     self.options_for_enum.each do | key, value |
-      res.push([(I18n.t "status.#{key}"), key])
+      status_list.push([(I18n.t "status.#{key}"), key])
     end
-    return res
+    return status_list
   end
 end
