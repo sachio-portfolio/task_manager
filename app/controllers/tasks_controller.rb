@@ -2,24 +2,20 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   def index
     if params[:sort_expired]
-      @tasks = Task.all.order("expired_at DESC")
+      @tasks = Task.all.order("expired_at DESC").page(params[:page]).per(8)
     elsif params[:sort_priority]
-      @tasks = Task.all.order("priority ASC")
+      @tasks = Task.all.order("priority ASC").page(params[:page]).per(8)
     else
       if params[:task].present?
         if params[:task][:task_name].present? && params[:task][:status].present?
-          @tasks = Task.search_task_name(params[:task][:task_name]).search_status(params[:task][:status])
+          @tasks = Task.search_task_name(params[:task][:task_name]).search_status(params[:task][:status]).page(params[:page]).per(8)
         elsif params[:task][:task_name].present?
-          @tasks = Task.search_task_name(params[:task][:task_name])
+          @tasks = Task.search_task_name(params[:task][:task_name]).page(params[:page]).per(8)
         elsif params[:task][:status].present?
-          @tasks = Task.search_status(params[:task][:status])
+          @tasks = Task.search_status(params[:task][:status]).page(params[:page]).per(8)
         end
       else
-        if params[:sort_expired].present?
-          @tasks = Task.all.order("expired_at DESC")
-        else
-          @tasks = Task.all.order("created_at DESC")
-        end
+        @tasks = Task.all.order("created_at DESC").page(params[:page]).per(8)
       end
     end
   end
