@@ -1,4 +1,4 @@
-<%= form_with model: @task, local: true do |f| %>
+<div class="error_unit">
   <% if @task.errors.any? %>
     <div id="error_explanation">
       <h2><%= @task.errors.count %>件のエラーがあります。</h2>
@@ -9,27 +9,34 @@
       </ul>
     </div>
   <% end %>
-  <div class="task_unit">
-    <%= f.label :task_name %>
-    <%= f.text_field :task_name %>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col-xs-12 col-md-6">
+    <%= form_with model: @task, local: true do |f| %>
+      <div class="form-group task_unit">
+        <%= f.label :task_name %>
+        <%= f.text_field :task_name, class: "form-control" %>
+      </div>
+      <div class="form-group task_unit">
+        <%= f.label :discription %>
+        <%= f.text_area :discription, class: "form-control" %>
+      </div>
+      <div class="form-group task_unit">
+        <%= f.label :expired_at %>
+        <%= f.datetime_field :expired_at, class: "form-control" %>
+      </div>
+      <div class="form-group task_unit">
+        <%= f.label :status %>
+        <%= f.select :status, Status.options_for_status, {prompt: false}, class: "form-control" %>
+      </div>
+      <div class="form-group task_unit">
+        <%= f.label :priority %>
+        <%= f.select :priority, Priority.options_for_priority, {prompt: false}, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "登録する", class: "btn btn-info" %>
+      </div>
+    <% end %>
   </div>
-  <div class="task_unit">
-    <%= f.label :discription %>
-    <%= f.text_area :discription %>
-  </div>
-  <div class="task_unit">
-    <%= f.label :expired_at %>
-    <%= f.datetime_field :expired_at %>
-  </div>
-  <div class="task_unit">
-    <%= f.label :status %>
-    <%= f.select :status, Status.options_for_status, {prompt: false} %>
-  </div>
-  <div class="task_unit">
-    <%= f.label :priority %>
-    <%= f.select :priority, Priority.options_for_priority, {prompt: false} %>
-  </div>
-    <%= f.submit %>
-<% end %>
-<br>
+</div>
 <%= link_to t('view.go_to_index'), tasks_path %>

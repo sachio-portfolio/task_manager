@@ -1,40 +1,63 @@
-<h1><%= t('view.task_index_screen') %></h1>
-<div class="serch_unit">
-  <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
-    <%= f.label t('view.task_name') %>
-    <%= f.text_field :task_name %>
-    <%= f.label t('view.status') %>
-    <%= f.select :status, Status.options_for_status %>
-    <%= f.submit "検索" %>
-  <% end %>
+<div class="col-md-1">
 </div>
-<table>
-  <thead>
-    <tr>
-      <th><%= t('view.task_name') %></th>
-      <th><%= t('view.discription') %></th>
-      <th><%= link_to t('view.expired_at'), tasks_path(sort_expired: "true") %></th>
-      <th><%= t('view.status') %></th>
-      <th><%= link_to t('view.priority'), tasks_path(sort_priority: "true") %></th>
-      <th><%= t('view.show') %></th>
-      <th><%= t('view.edit') %></th>
-      <th><%= t('view.delete') %></th>
-    </tr>
-  </thead>
-  <tbody class="task_list">
-    <% @tasks.each do |task| %>
-    <tr>
-      <td class="task_row"><%= task.task_name %></td>
-      <td><%= task.discription %></td>
-      <td><%= l(task.expired_at, format: :long) %></td>
-      <td><%= t("status.#{task.status}") %></td>
-      <td><%= t("priority.#{task.priority}") %></td>
-      <td><%= link_to t('view.show'), task_path(task.id) %></td>
-      <td><%= link_to t('view.edit'), edit_task_path(task.id) %></td>
-      <td><%= link_to t('view.delete'), task_path(task.id), method: :delete, data: {confirm: t('view.delete_task')} %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate(@tasks) %>
-<%= link_to t('view.make_new_task'), new_task_path %>
+<div class="col-xs-12 col-md-11">
+  <div class="">
+    <h1 class="mb-3"><%= t('view.task_index_screen') %></h1>
+  </div>
+  <form>
+    <div class="form-row serch_unit">
+      <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
+        <div class="form-group row col-md-5">
+          <%= f.label t('view.task_name'), class: "col-sm-4 col-form-label" %>
+          <div class="col-sm-8">
+            <%= f.text_field :task_name, class: "form-control", placeholder: "検索.." %>
+          </div>
+        </div>
+        <div class="form-group col-md-4 status-choice">
+          <%= f.label t('view.status'), class: "status-choice" %>
+          <%= f.select :status, Status.options_for_status, class: "form-control form-control-lg" %>
+        </div>
+        <div class="form-group col-md-3 ">
+          <%= f.submit "検索", class: "btn btn-outline-dark" %>
+        </div>
+      <% end %>
+    </div>
+  </form>
+  <div class="btn btn-primary new-btn  btn-sm mb-4">
+    <%= link_to t('view.make_new_task'), new_task_path %>
+  </div>
+  <div class="">
+    <%= "#{@tasks.count}件のタスクが表示されています" %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('view.task_name') %></th>
+        <th><%= t('view.discription') %></th>
+        <th><%= link_to t('view.expired_at'), tasks_path(sort_expired: "true") %></th>
+        <th><%= t('view.created_at') %></th>
+        <th><%= t('view.status') %></th>
+        <th><%= link_to t('view.priority'), tasks_path(sort_priority: "true") %></th>
+        <th><%= "" %></th>
+      </tr>
+    </thead>
+    <tbody class="task_list">
+      <% @tasks.each do |task| %>
+      <tr>
+        <td class="task_row"><%= task.task_name %></td>
+        <td><%= task.discription %></td>
+        <td><%= l(task.expired_at, format: :long) %></td>
+        <td><%= l(task.created_at, format: :short) %></td>
+        <td><%= t("status.#{task.status}") %></td>
+        <td><%= t("priority.#{task.priority}") %></td>
+        <td>
+          <%= link_to t('view.show'), task_path(task.id),  class: "btn btn-outline-primary show-btn" %>
+          <%= link_to t('view.edit'), edit_task_path(task.id), class: "btn btn-outline-success edit-btn" %>
+          <%= link_to t('view.delete'), task_path(task.id), method: :delete, data: {confirm: t('view.delete_task')}, class: "btn btn-outline-danger delete-btn" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate(@tasks) %>
+</div>

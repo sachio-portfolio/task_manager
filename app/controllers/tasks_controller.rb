@@ -22,11 +22,7 @@ class TasksController < ApplicationController
   def show
   end
   def new
-    if params[:back]
-      @task = Task.new(task_params)
-    else
-      @task = Task.new
-    end
+    @task = Task.new
   end
   def create
     @task = Task.new(task_params)

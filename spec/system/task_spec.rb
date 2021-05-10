@@ -47,7 +47,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクが優先順位の昇順に並んでいる場合' do
       let!(:high_priority_task){ FactoryBot.create(:high_priority_task)}
       before do
-        click_on '優先順位'
+        click_on '優先度'
       end
       it '優先順位が一番高いものが一番上に表示される' do
         within '.task_list' do

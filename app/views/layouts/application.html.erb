@@ -15,6 +15,10 @@
         <%= flash[:notice] %>
       </div>
     <% end %>
-    <%= yield %>
+    <div class="container-fluid">
+      <div class="row main">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
