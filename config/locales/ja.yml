@@ -7,13 +7,24 @@ ja:
     task_edit_screen: タスク編集画面
     task_name: タスク名
     discription: タスク詳細
+    expired_at: 終了期限
+    created_at: 登録日
+    status: ステータス
+    priority: 優先度
     show: 詳細
     edit: 編集
     delete: 削除
-    make_new_task: タスク新規作成へ
+    make_new_task: 新規登録
     delete_task: このタスクを削除しますか？
     go_to_index: タスク一覧へ戻る
-
+  status:
+    not_started: 未着手
+    in_progress: 着手中
+    done: 完了
+  priority:
+    high: 高
+    normal: 中
+    low: 低
   activerecord:
     errors:
       messages:
@@ -217,5 +228,5 @@ ja:
     formats:
       default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       long: "%Y/%m/%d %H:%M"
-      short: "%m/%d %H:%M"
+      short: "%Y/%m/%d"
     pm: 午後
