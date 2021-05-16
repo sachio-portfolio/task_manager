@@ -1,0 +1,23 @@
+<div class="">
+  <%= form_with(model: @user, local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :user_name %>
+    <%= f.text_field :user_name, class: "form-control", placeholder: "例) タスクマネ郎" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: "form-control", placeholder: "例) xxx@mail.com" %>
+  </div>
+  <div class="form-group">
+    <%= f.label t('view.password') %>
+    <%= f.password_field :password, class: "form-control", placeholder: "6文字以上" %>
+  </div>
+  <div class="form-group">
+    <%= f.label t('view.password_confirmation') %>
+    <%= f.password_field :password_confirmation, class: "form-control", placeholder: "上記のパスワードを再入力" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "登録", class: "btn btn-info" %>
+  </div>
+  <% end %>
+</div>

@@ -1,0 +1,18 @@
+<div class="col-md-1">
+</div>
+<div class="col-xs-12 col-md-11">
+  <div class="card mt-3" style="width: 30rem;" >
+    <div class="card-header">
+      <h2><%= @user.user_name %>さんのマイページ</h2>
+    </div>
+    <div class="card-body">
+      <p>email：<%= @user.email %></p>
+    </div>
+    <div class="list-group list-group-flush">
+      <div class="list-group-item">
+        <p>登録タスク数：<%= @user.tasks.count %></p>
+        <%= link_to "タスク一覧", tasks_path, class: "btn btn-light" %>
+      </div>
+    </div>
+  </div>
+</div>

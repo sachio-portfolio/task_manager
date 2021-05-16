@@ -8,15 +8,35 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <% if flash.notice.present? %>
-      <div class="alert alert-success">
-        <%= flash[:notice] %>
+    <header class="sticky-top">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12 col-md-2">
+          </div>
+          <div class="col-xs-12 col-sm-8 col-md-8">
+            <div class="d-flex bd-highlight">
+              <div class="mt-1 p-3 bd-highlight align-self-center">
+                <% if logged_in? %>
+                  <%= link_to "Profile", user_path(current_user.id) %>
+                  <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+                <% else %>
+                  <%= link_to "Sign up", new_user_path %>
+                  <%= link_to "Login", new_session_path %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-2">
+          </div>
+        </div>
       </div>
-    <% end %>
+    </header>
     <div class="container-fluid">
       <div class="row main">
+        <% flash.each do |key, value| %>
+          <%= content_tag(:p, value, class: "alert alert-#{key}") %>
+        <% end %>
         <%= yield %>
       </div>
     </div>

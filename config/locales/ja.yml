@@ -17,6 +17,14 @@ ja:
     make_new_task: 新規登録
     delete_task: このタスクを削除しますか？
     go_to_index: タスク一覧へ戻る
+    user_new_screen: ユーザー新規作成
+    user_show_screen: ユーザーの詳細
+    user_edit_screen: ユーザー編集画面
+    user_name: ユーザー名
+    email: メールアドレス
+    password: パスワード
+    password_confirmation: パスワード(確認用)
+    create_new_user: ユーザー登録
   status:
     not_started: 未着手
     in_progress: 着手中
