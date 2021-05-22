@@ -16,6 +16,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dotenv-rails'
 gem 'kaminari'
 gem 'bcrypt','3.1.11'
+gem 'pry-rails'
+gem 'better_errors'
+gem 'binding_of_caller'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

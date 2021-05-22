@@ -1,11 +1,22 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:longest_task){ FactoryBot.create(:longest_task)}
-  let!(:task){ FactoryBot.create(:task) }
-  let!(:second_task){ FactoryBot.create(:second_task) }
-  let!(:latest_task){ FactoryBot.create(:latest_task)}
+  let!(:user){ FactoryBot.create(:user)}
+  let!(:admin_user){ FactoryBot.create(:admin_user)}
+  let!(:second_user){ FactoryBot.create(:second_user)}
+
+  let!(:longest_task){ FactoryBot.create(:longest_task, user_id: user.id)}
+  let!(:task){ FactoryBot.create(:task, user_id: user.id) }
+  let!(:second_task){ FactoryBot.create(:second_task, user_id: user.id) }
+  let!(:latest_task){ FactoryBot.create(:latest_task, user_id: user.id)}
+
+  before do
+    visit new_session_path
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
+    find('.create_session').click_on 'ログイン'
+  end
   describe '新規作成機能' do
-    let!(:new_task){ FactoryBot.build(:new_task) }
+    let!(:new_task){ FactoryBot.build(:new_task, user_id: user.id) }
     before do
       visit new_task_path
       fill_in 'タスク名', with: new_task.task_name
@@ -15,7 +26,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
-      expect(page).to have_selector '.alert-success', text: new_task.task_name
+      expect(page).to have_selector '.alert-success', text: "新たなタスク「#{new_task.task_name}」が作成されました"
       end
     end
   end
@@ -45,7 +56,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     context 'タスクが優先順位の昇順に並んでいる場合' do
-      let!(:high_priority_task){ FactoryBot.create(:high_priority_task)}
+      let!(:high_priority_task){ FactoryBot.create(:high_priority_task, user_id: user.id)}
       before do
         click_on '優先度'
       end
@@ -57,7 +68,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
   describe '詳細表示機能' do
-    let!(:show_task){FactoryBot.create(:show_task)}
+    let!(:show_task){FactoryBot.create(:show_task, user_id: user.id)}
     before do
       visit tasks_path
       first('tbody tr').click_on '詳細'

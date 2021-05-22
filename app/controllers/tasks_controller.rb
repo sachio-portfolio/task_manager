@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   def index
     if params[:sort_expired]
-      @tasks = current_user.tasks.order("expired_at DESC").page(params[:page]).per(8)
+      @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("expired_at DESC").page(params[:page]).per(8)
     elsif params[:sort_priority]
-      @tasks = current_user.tasks.order("priority ASC").page(params[:page]).per(8)
+      @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("priority ASC").page(params[:page]).per(8)
     else
       if params[:task].present?
         if params[:task][:task_name].present? && params[:task][:status].present?
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
           @tasks = Task.search_status(params[:task][:status]).page(params[:page]).per(8)
         end
       else
-        @tasks = current_user.tasks.order("created_at DESC").page(params[:page]).per(8)
+        @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("created_at DESC").page(params[:page]).per(8)
       end
     end
   end
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to task_path(@task.id)
-      flash[:notice] = "新たなタスク「#{@task.task_name}」が作成されました"
+      flash[:success] = "新たなタスク「#{@task.task_name}」が作成されました"
     else
       render :new
     end

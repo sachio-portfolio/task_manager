@@ -5,6 +5,7 @@ FactoryBot.define do
     expired_at { '2021-06-01 00:00:00' }
     status { 'done' }
     priority { 'low' }
+    association :user
   end
   factory :second_task, class: Task do
     task_name { 'Factoryで作ったデフォルトのタスク名' }
@@ -12,6 +13,7 @@ FactoryBot.define do
     expired_at { '2021-07-02 00:00:00' }
     status { 'not_started' }
     priority { 'normal' }
+    association :user
   end
   factory :new_task, class: Task do
     task_name { '新規作成のテストを書く' }
@@ -19,6 +21,7 @@ FactoryBot.define do
     expired_at { '2021-08-03 00:00:00' }
     status { 'in_progress' }
     priority { 'low' }
+    association :user
   end
   factory :show_task, class: Task do
     task_name { '詳細画面の表示のテストを書く' }
@@ -26,6 +29,7 @@ FactoryBot.define do
     expired_at { '2021-09-04 00:00:00' }
     status { 'in_progress' }
     priority { 'low' }
+    association :user
   end
   factory :latest_task, class: Task do
     task_name { '最新のタスク' }
@@ -33,6 +37,7 @@ FactoryBot.define do
     expired_at { '2021-10-05 00:00:00' }
     status { 'not_started' }
     priority { 'normal' }
+    association :user
   end
   factory :longest_task, class: Task do
     task_name { '一番期限の長いタスク' }
@@ -40,6 +45,7 @@ FactoryBot.define do
     expired_at { Time.zone.local(2021, 12, 31) }
     status { 'not_started' }
     priority { 'low' }
+    association :user
   end
   factory :high_priority_task, class: Task do
     task_name { '優先順位の高いタスク' }
@@ -47,5 +53,6 @@ FactoryBot.define do
     expired_at { '2021-05-20 00:00:00' }
     status { 'in_progress' }
     priority { 'high' }
+    association :user
   end
 end

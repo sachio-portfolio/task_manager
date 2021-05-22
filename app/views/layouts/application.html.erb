@@ -18,11 +18,14 @@
             <div class="d-flex bd-highlight">
               <div class="mt-1 p-3 bd-highlight align-self-center">
                 <% if logged_in? %>
-                  <%= link_to "Profile", user_path(current_user.id) %>
-                  <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+                  <%= link_to "マイページ", user_path(current_user.id) %>
+                  <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+                  <% if current_user.admin? %>
+                    <%= link_to "ユーザー一覧", admin_users_path %>
+                  <% end %>
                 <% else %>
-                  <%= link_to "Sign up", new_user_path %>
-                  <%= link_to "Login", new_session_path %>
+                  <%= link_to "ユーザー登録", new_user_path %>
+                  <%= link_to "ログイン", new_session_path %>
                 <% end %>
               </div>
             </div>
@@ -33,10 +36,12 @@
       </div>
     </header>
     <div class="container-fluid">
-      <div class="row main">
+      <div class="">
         <% flash.each do |key, value| %>
-          <%= content_tag(:p, value, class: "alert alert-#{key}") %>
+          <%= content_tag(:div, value, class: "alert alert-#{key}") %>
         <% end %>
+      </div>
+      <div class="row main">
         <%= yield %>
       </div>
     </div>

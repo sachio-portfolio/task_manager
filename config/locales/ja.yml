@@ -22,6 +22,7 @@ ja:
     user_edit_screen: ユーザー編集画面
     user_name: ユーザー名
     email: メールアドレス
+    admin: 管理者権限
     password: パスワード
     password_confirmation: パスワード(確認用)
     create_new_user: ユーザー登録

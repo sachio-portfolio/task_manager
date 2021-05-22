@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :login_required, only: %i[ new create ]
+  skip_before_action :login_required
   def new
   end
   def create
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     end
   end
   def destroy
-    session.delete(:user_id)
+    reset_session
     flash.now[:notice] = 'ログアウトしました'
     redirect_to new_session_path
   end
