@@ -27,7 +27,7 @@
     <%= link_to t('view.make_new_task'), new_task_path %>
   </div>
   <div class="">
-    <%= "#{@tasks.count}件のタスクが表示されています" %>
+    <%= "#{current_user.tasks.count}件中 #{@tasks.count}件のタスクが表示されています" %>
   </div>
   <table class="table">
     <thead>

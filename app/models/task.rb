@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
   before_validation :set_default_expired, on: %i[ create update ]
   validates :task_name, :discription, :status, presence: true
+  belongs_to :user
 
   require './app/commonclass/status'
   enum status: Status.options_for_enum

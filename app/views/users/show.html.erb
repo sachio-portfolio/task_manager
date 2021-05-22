@@ -1,0 +1,50 @@
+<div class="col-md-1">
+</div>
+<div class="col-xs-12 col-md-11">
+  <div class="card mt-3" style="width: 30rem;" >
+    <div class="card-header">
+      <h2><%= @user.user_name %>さんのマイページ</h2>
+    </div>
+    <div class="card-body">
+      <p>email：<%= @user.email %></p>
+    </div>
+    <div class="list-group list-group-flush">
+      <div class="list-group-item">
+        <p>登録タスク数：<%= @user.tasks.count %></p>
+      </div>
+    </div>
+  </div>
+  <div class="btn btn-primary new-btn  btn-sm mt-4 mb-4">
+    <%= link_to t('view.make_new_task'), new_task_path %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t('view.task_name') %></th>
+        <th><%= t('view.discription') %></th>
+        <th><%= t('view.expired_at') %></th>
+        <th><%= t('view.created_at') %></th>
+        <th><%= t('view.status') %></th>
+        <th><%= t('view.priority') %></th>
+        <th><%= "" %></th>
+      </tr>
+    </thead>
+    <tbody class="task_list">
+      <% @tasks.each do |task| %>
+      <tr>
+        <td class="task_row"><%= task.task_name %></td>
+        <td><%= task.discription %></td>
+        <td><%= l(task.expired_at, format: :long) %></td>
+        <td><%= l(task.created_at, format: :short) %></td>
+        <td><%= t("status.#{task.status}") %></td>
+        <td><%= t("priority.#{task.priority}") %></td>
+        <td>
+          <%= link_to t('view.show'), task_path(task.id),  class: "btn btn-outline-primary show-btn" %>
+          <%= link_to t('view.edit'), edit_task_path(task.id), class: "btn btn-outline-success edit-btn" %>
+          <%= link_to t('view.delete'), task_path(task.id), method: :delete, data: {confirm: t('view.delete_task')}, class: "btn btn-outline-danger delete-btn" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

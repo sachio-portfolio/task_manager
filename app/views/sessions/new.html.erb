@@ -1,0 +1,22 @@
+<div class="col-md-1">
+</div>
+<div class="col-xs-12 col-md-6">
+  <h1 class="mb-3">ログイン画面</h1>
+  <div class="create_session">
+    <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :email, t('view.email') %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, t('view.password') %>
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "ログイン", class: "btn btn-primary" %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div class="col-md-5">
+</div>
