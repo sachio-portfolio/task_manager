@@ -11,6 +11,7 @@ ja:
     created_at: 登録日
     status: ステータス
     priority: 優先度
+    label: ラベル
     show: 詳細
     edit: 編集
     delete: 削除
@@ -26,6 +27,7 @@ ja:
     password: パスワード
     password_confirmation: パスワード(確認用)
     create_new_user: ユーザー登録
+    create_new_label: ラベル作成
   status:
     not_started: 未着手
     in_progress: 着手中

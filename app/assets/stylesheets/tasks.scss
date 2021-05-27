@@ -13,6 +13,12 @@ select#task_status {
   border-radius: 5px;
   font-size: 15px;
 }
+
 .pagination {
   justify-content: center;
+}
+
+td .label_style {
+  font-size: 8px;
+  padding: .125rem .25rem;
 }

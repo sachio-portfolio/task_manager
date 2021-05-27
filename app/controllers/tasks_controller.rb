@@ -2,22 +2,25 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
   def index
     if params[:sort_expired]
-      @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("expired_at DESC").page(params[:page]).per(8)
+      @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("expired_at DESC")
     elsif params[:sort_priority]
-      @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("priority ASC").page(params[:page]).per(8)
+      @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("priority ASC")
     else
       if params[:task].present?
         if params[:task][:task_name].present? && params[:task][:status].present?
-          @tasks = Task.search_task_name(params[:task][:task_name]).search_status(params[:task][:status]).page(params[:page]).per(8)
+          @tasks = current_user.tasks.search_task_name(params[:task][:task_name]).search_status(params[:task][:status]).order("created_at DESC")
         elsif params[:task][:task_name].present?
-          @tasks = Task.search_task_name(params[:task][:task_name]).page(params[:page]).per(8)
+          @tasks = current_user.tasks.search_task_name(params[:task][:task_name]).order("created_at DESC")
         elsif params[:task][:status].present?
-          @tasks = Task.search_status(params[:task][:status]).page(params[:page]).per(8)
+          @tasks = current_user.tasks.search_status(params[:task][:status]).order("created_at DESC")
+        elsif params[:task][:label_id].present?
+          @tasks = current_user.tasks.search_label(params[:task][:label_id]).order("created_at DESC")
         end
       else
-        @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("created_at DESC").page(params[:page]).per(8)
+        @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("created_at DESC")
       end
     end
+    @tasks = @tasks.page(params[:page]).per(8)
   end
   def show
   end
@@ -50,7 +53,7 @@ class TasksController < ApplicationController
   end
   private
   def task_params
-    params.require(:task).permit(:task_name, :discription, :expired_at, :status, :priority,)
+    params.require(:task).permit(:task_name, :discription, :expired_at, :status, :priority, { label_ids: [] })
   end
   def set_task
     @task = Task.find(params[:id])
