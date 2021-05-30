@@ -14,7 +14,7 @@ class TasksController < ApplicationController
         elsif params[:task][:status].present?
           @tasks = current_user.tasks.search_status(params[:task][:status]).order("created_at DESC")
         elsif params[:task][:label_id].present?
-          @tasks = current_user.tasks.search_label(params[:task][:label_id]).order("created_at DESC")
+          @tasks = current_user.tasks.search_label(params[:task][:label_id])
         end
       else
         @tasks = current_user.tasks.select(:id, :task_name, :discription, :expired_at, :status, :priority, :created_at,).order("created_at DESC")
