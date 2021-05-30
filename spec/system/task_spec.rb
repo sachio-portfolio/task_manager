@@ -3,7 +3,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   let!(:user){ FactoryBot.create(:user)}
   let!(:admin_user){ FactoryBot.create(:admin_user)}
   let!(:second_user){ FactoryBot.create(:second_user)}
-
+  
   let!(:longest_task){ FactoryBot.create(:longest_task, user_id: user.id)}
   let!(:task){ FactoryBot.create(:task, user_id: user.id) }
   let!(:second_task){ FactoryBot.create(:second_task, user_id: user.id) }

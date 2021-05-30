@@ -7,23 +7,25 @@
   <form>
     <div class="form-row serch_unit">
       <%= form_with scope: :task, url: tasks_path, method: :get, local: true do |f| %>
-        <div class="form-group row col-md-5">
-          <%= f.label t('view.task_name'), class: "col-sm-4 col-form-label" %>
-          <div class="col-sm-8">
-            <%= f.text_field :task_name, class: "form-control", placeholder: "検索.." %>
-          </div>
+        <div class="form-group row col-md-4  status-choice mt-3">
+          <%= f.label :task_name, t('view.task_name'), class: "col-sm-6 status-choice " %>
+          <%= f.text_field :task_name, class: "form-control col-sm-6 ml-3", placeholder: "検索.." %>
         </div>
-        <div class="form-group col-md-4 status-choice">
-          <%= f.label t('view.status'), class: "status-choice" %>
-          <%= f.select :status, Status.options_for_status, class: "form-control form-control-lg" %>
+        <div class="form-group row col-md-3 status-choice mt-3">
+          <%= f.label :status, t('view.status'), class: "status-choice col-sm-6" %>
+          <%= f.select :status, Status.options_for_status, { include_blank: true }, class: "form-control form-control-sm col-sm-6 ml-3" %>
         </div>
-        <div class="form-group col-md-3 ">
+        <div class="form-group row col-md-3 status-choice mt-3">
+          <%= f.label :label, t('view.label'), class: "status-choice col-sm-6" %>
+          <%= f.select :label_id, Label.pluck(:label_name, :id), { include_blank: true }, class: "form-control form-control-sm col-sm-6 ml-3" %>
+        </div>
+        <div class="form-group col-md-2 text-right mt-4">
           <%= f.submit "検索", class: "btn btn-outline-dark" %>
         </div>
       <% end %>
     </div>
   </form>
-  <div class="btn btn-primary new-btn  btn-sm mb-4">
+  <div class="btn btn-primary new-btn  btn-sm mt-4 mb-4">
     <%= link_to t('view.make_new_task'), new_task_path %>
   </div>
   <div class="">
@@ -38,6 +40,7 @@
         <th><%= t('view.created_at') %></th>
         <th><%= t('view.status') %></th>
         <th><%= link_to t('view.priority'), tasks_path(sort_priority: "true") %></th>
+        <th><%= t('view.label') %></th>
         <th><%= "" %></th>
       </tr>
     </thead>
@@ -50,6 +53,13 @@
         <td><%= l(task.created_at, format: :short) %></td>
         <td><%= t("status.#{task.status}") %></td>
         <td><%= t("priority.#{task.priority}") %></td>
+        <td>
+          <% task.labels.each do |label| %>
+            <div class="label_style btn btn-secondary">
+              <%= label.label_name %>
+            </div>
+          <% end %>
+        </td>
         <td>
           <%= link_to t('view.show'), task_path(task.id),  class: "btn btn-outline-primary show-btn" %>
           <%= link_to t('view.edit'), edit_task_path(task.id), class: "btn btn-outline-success edit-btn" %>
