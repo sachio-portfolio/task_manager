@@ -19,6 +19,7 @@ gem 'bcrypt','3.1.11'
 gem 'pry-rails'
 gem 'better_errors'
 gem 'binding_of_caller'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
