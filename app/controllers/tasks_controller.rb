@@ -41,7 +41,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       redirect_to task_path(@task.id)
-      flash[:notice] = "タスク「#{@task.task_name}」の編集が完了しました"
+      flash[:success] = "タスク「#{@task.task_name}」の編集が完了しました"
     else
       render :edit
     end

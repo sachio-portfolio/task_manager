@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :task do
+  factory :task, class: Task do
     task_name { 'Factoryで作ったデフォルトのタイトル1' }
     discription { 'Factoryで作ったデフォルトのコンテント1' }
     expired_at { '2021-06-01 00:00:00' }
